@@ -67,11 +67,11 @@ def update_experiment_summary(results: dict[str, Any], output_dir: Path) -> None
         output_dir: Directory of the current experiment (used to derive CSV path).
 
     Note:
-        The CSV file is located at outputs/experiments.csv (parent of output_dir).
+        The CSV file is located at outputs/experiments.csv.
         If the CSV already exists with different columns, new columns will be
         added but existing rows may have empty values for new columns.
     """
-    summary_path = output_dir.parent.parent / "experiments.csv"
+    summary_path = Path("outputs/experiments.csv")
 
     # Flatten the results for CSV
     flat_results: dict[str, Any] = {}

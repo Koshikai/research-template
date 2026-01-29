@@ -15,12 +15,12 @@ AIエージェントが各ファイルの役割を誤認しないよう、明確
 │   │       └── scripts/
 │   └── workflows/         # 再現可能な作業手順
 ├── scripts/               # 再現可能な実験実行の起点 (CLI)
-│   ├── train.py
-│   └── evaluate.py
+│   ├── run_experiment.py
+│   └── convert_papers.py
 ├── outputs/               # 実験結果、ログ、プロット (エージェントがCheckする場所)
 │   ├── latest/
 │   └── [timestamp]/
-├── notebooks/             # 試行錯誤用のJupyter Notebook
+├── notebooks/             # 試行錯誤用の marimo Notebook
 ├── tests/                 # ユニットテスト、リグレッションテスト
 ├── data/                  # 実データ（Git管理対象外）
 │   ├── raw/               # 編集不可の生データ
