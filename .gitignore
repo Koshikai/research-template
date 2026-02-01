@@ -27,6 +27,8 @@ data/interim/
 
 # Reference images (generated from PDFs)
 references/images/
+references/paper.pdf
+references/paper.md
 
 # Jupyter/marimo checkpoints
 .ipynb_checkpoints/
