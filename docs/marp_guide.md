@@ -19,14 +19,9 @@ Marp (Markdown Presentation Ecosystem) は、Markdown を使用して素早く�
 ### B. Marp CLI (コマンドラインツール)
 CLI を使用すると、コマンド一つで Markdown を各種フォーマットに変換できます。
 ```bash
-# インストール (npm を使用)
-npm install -g @marp-team/marp-cli
-
-# PDF に変換
-marp presentation.md --pdf -o presentation.pdf
-
-# PowerPoint に変換
-marp presentation.md --pptx -o presentation.pptx
+# インストール不要で実行 (bunx を使用)
+bunx @marp-team/marp-cli presentation.md --pdf -o presentation.pdf
+bunx @marp-team/marp-cli presentation.md --pptx -o presentation.pptx
 ```
 
 ## 3. 基本的な書き方
@@ -60,3 +55,29 @@ footer: "2026/01/26 - Kaito"
 - **画像の高度な処理**: `![width:500px](image.jpg)` のようにサイズ指定やフィルタ適用が可能。
 - **背景指定**: `![bg right](background.jpg)` で背景画像を右側に配置し、左側にテキストを書くといったレイアウトが容易。
 - **数式対応**: KaTeX をサポートしており、LaTeX 形式で美しい数式を記述可能。
+
+## 5. PPTXGenJS 実装を併用する
+
+`presentation/` 配下に、MarpのMarkdownを読み取って `PPTXGenJS` で `.pptx` を生成する補助CLIを追加できます。
+
+```bash
+cd presentation
+bun install
+bun run build:pptxgen
+```
+
+任意ファイルを指定する場合:
+
+```bash
+cd presentation
+bun scripts/marp-to-pptxgenjs.mjs demo.md --output demo-pptxgenjs.pptx
+```
+
+このCLIが扱う主な要素:
+- front matter の `header`, `footer`, `paginate`, `backgroundColor`
+- スライド区切り `---`
+- 見出し・箇条書き・本文のテキスト配置
+
+注意点:
+- Marp独自の高度なCSSレイアウトや画像配置ディレクティブ（例: `![bg left:40%]`）は完全再現しません。
+- 数式はプレーンテキストとして扱われるため、Marp CLI の変換結果と見た目は一致しない場合があります。

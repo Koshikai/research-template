@@ -1,11 +1,6 @@
 import logging
 from pathlib import Path
 
-try:
-    import pymupdf4llm
-except ImportError:
-    pymupdf4llm = None
-
 
 def main():
     # Setup simple logging
@@ -14,7 +9,9 @@ def main():
     )
     logger = logging.getLogger("paper_converter")
 
-    if pymupdf4llm is None:
+    try:
+        import pymupdf4llm
+    except ImportError:
         logger.error("pymupdf4llm is not installed. Please run 'uv add pymupdf4llm'")
         return
 

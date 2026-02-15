@@ -3,16 +3,13 @@ from __future__ import annotations
 
 import argparse
 
-try:
-    from playwright.sync_api import sync_playwright  # type: ignore
-except ImportError:
-    sync_playwright = None
-
 HTTP_ERROR_THRESHOLD = 400
 
 
 def _load_playwright():
-    if sync_playwright is None:
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
         raise RuntimeError(
             "playwright is not installed. Install it with: "
             "uv add --dev playwright && uv run playwright install chromium"

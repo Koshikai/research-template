@@ -37,15 +37,19 @@ def main():
 
         try:
             doc = fitz.open(pdf_path)
-            for i, page in enumerate(doc):
-                # Save as PNG
-                # Zoom = 2 (144 dpi) for better quality
-                pix = page.get_pixmap(matrix=fitz.Matrix(2, 2))
-                output_path = paper_img_dir / f"page_{i + 1:03d}.png"
-                pix.save(output_path)
+            try:
+                for i in range(doc.page_count):
+                    page = doc.load_page(i)
 
-            logger.info(f"Saved {len(doc)} pages to {paper_img_dir}")
-            doc.close()
+                    # Save as PNG
+                    # Zoom = 2 (144 dpi) for better quality
+                    pix = page.get_pixmap(matrix=fitz.Matrix(2, 2))
+                    output_path = paper_img_dir / f"page_{i + 1:03d}.png"
+                    pix.save(str(output_path))
+
+                logger.info(f"Saved {doc.page_count} pages to {paper_img_dir}")
+            finally:
+                doc.close()
 
         except Exception as e:
             logger.error(f"Failed to process {pdf_path.name}: {e}")

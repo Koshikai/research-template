@@ -61,11 +61,14 @@ ignore = []
 quote-style = "double"
 indent-style = "space"
 
-[tool.knot]
-# ty (formerly Red Knot) configuration
-# Note: As of early 2026, configuration keys may evolve.
-level = "strict"
+[tool.ty.environment]
+# Target Python version for type checking. (Usually inferred from `project.requires-python`,
+# but we pin it here to make behavior explicit.)
 python-version = "3.13"
+
+[tool.ty.terminal]
+# Treat warning-level diagnostics as failures, approximating a "strict" policy.
+error-on-warning = true
 
 [tool.poe.tasks]
 exp = "python scripts/run_experiment.py"
